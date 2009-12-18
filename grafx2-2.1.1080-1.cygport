@@ -1,0 +1,14 @@
+DESCRIPTION="Graphics editor in style of Amiga Deluxe Paint"
+HOMEPAGE="http://code.google.com/p/grafx2/"
+SRC_URI="http://grafx2.googlecode.com/files/${P}-src.tgz"
+SRC_DIR=${PN}
+
+PATCH_URI="2.1-cygwin.patch"
+
+MAKEOPTS+=" prefix=/usr COMSPEC= "
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake
+}
