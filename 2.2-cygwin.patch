@@ -1,0 +1,91 @@
+--- origsrc/grafx2/src/brush_ops.c	2010-03-08 04:15:51.000000000 -0600
++++ src/grafx2/src/brush_ops.c	2010-09-16 03:40:42.963478700 -0500
+@@ -24,6 +24,7 @@
+ /// Code for operations about the brush (grabbing, rotating, ...) and magnifier
+ //////////////////////////////////////////////////////////////////////////////
+ 
++#undef __STRICT_ANSI__
+ #include <math.h>
+ #include <stdlib.h>
+ 
+--- origsrc/grafx2/src/graph.c	2010-03-08 04:15:51.000000000 -0600
++++ src/grafx2/src/graph.c	2010-09-16 03:40:08.130638300 -0500
+@@ -25,6 +25,7 @@
+ 
+ */
+ 
++#undef __STRICT_ANSI__
+ #include <string.h>
+ #include <stdlib.h>
+ #include <math.h>
+--- origsrc/grafx2/src/help.c	2010-03-08 04:15:51.000000000 -0600
++++ src/grafx2/src/help.c	2010-09-16 03:29:53.388931900 -0500
+@@ -29,7 +29,7 @@
+ #elif defined(__macosx__) || defined(__FreeBSD__)
+     #include <sys/param.h>
+     #include <sys/mount.h>
+-#elif defined (__linux__)
++#elif defined (__linux__) || defined(__CYGWIN__)
+     #include <sys/vfs.h>
+ #endif
+ 
+@@ -663,7 +663,7 @@ void Button_Stats(void)
+       GetDiskFreeSpaceEx(Main_current_directory,&tailleU,NULL,NULL);
+       mem_size = tailleU.QuadPart;
+     }
+-#elif defined(__linux__) || defined(__macosx__) || defined(__FreeBSD__)
++#elif defined(__linux__) || defined(__macosx__) || defined(__FreeBSD__) || defined(__CYGWIN__)
+     // Note: under MacOSX, both macros are defined anyway.
+     {
+       struct statfs disk_info;
+--- origsrc/grafx2/src/misc.c	2010-03-08 04:15:51.000000000 -0600
++++ src/grafx2/src/misc.c	2010-09-16 03:37:51.374995700 -0500
+@@ -765,7 +765,7 @@ unsigned long Memory_free(void)
+   len = sizeof(maxmem);
+   sysctl(mib,2,&maxmem,&len,NULL,0);
+   return maxmem;
+-#elif defined(__BEOS__) || defined(__HAIKU__) || defined(__SKYOS__) || defined(__amigaos4__) || defined(__TRU64__)
++#elif defined(__BEOS__) || defined(__HAIKU__) || defined(__SKYOS__) || defined(__amigaos4__) || defined(__TRU64__) || defined(__CYGWIN__)
+   // No <sys/sysctl.h> on BeOS or Haiku
+   // AvailMem is misleading on os4 (os4 caches stuff in memory that you can still allocate)
+ #warning "There is missing code there for your platform ! please check and correct :)"
+--- origsrc/grafx2/src/setup.c	2010-03-17 15:31:10.000000000 -0500
++++ src/grafx2/src/setup.c	2010-09-16 04:04:02.808239300 -0500
+@@ -35,7 +35,7 @@
+   #import <sys/param.h>
+ #elif defined(__FreeBSD__)
+   #import <sys/param.h>
+-#elif defined(__linux__)
++#elif defined(__linux__) || defined(__CYGWIN__)
+   #include <limits.h>
+   #include <unistd.h>
+ #endif
+@@ -86,7 +86,7 @@ void Set_program_directory(ARG_UNUSED co
+     strcpy(program_dir,"PROGDIR:");
+ 
+   // Linux: argv[0] unreliable
+-  #elif defined(__linux__)
++  #elif defined(__linux__) || defined(__CYGWIN__)
+   if (argv0[0]!='/')
+   {
+     char path[PATH_MAX];
+--- origsrc/grafx2/src/text.c	2010-03-08 04:15:51.000000000 -0600
++++ src/grafx2/src/text.c	2010-09-16 04:04:41.084528100 -0500
+@@ -36,7 +36,7 @@
+   #include <SDL_ttf.h>
+ #endif
+ 
+-#if defined(__linux__)
++#if defined(__linux__) || defined(__CYGWIN__)
+ #if defined(__macosx__)
+   #include <Carbon/Carbon.h>
+   #import <corefoundation/corefoundation.h>
+@@ -321,7 +321,7 @@ void Init_text(void)
+       CFRelease(url);
+     #endif
+ 
+-  #elif defined(__linux__)
++  #elif defined(__linux__) || defined(__CYGWIN__)
+     #ifndef NOTTF
+        #define USE_XLIB
+     

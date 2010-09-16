@@ -1,5 +1,5 @@
 category: Graphics
-requires: libgcc1 libpng12 libSDL1.2_0 libSDL_image1.2_0 libSDL_ttf2.0_0
+requires: libpng14 libSDL1.2_0 libSDL_image1.2_0 libSDL_ttf2.0_0 libX11_6 lua
 sdesc: "Image editor in style of Amiga Deluxe Paint"
 ldesc: "This program is dedicated to everybody who knows what a single 
 pixel is. Its layout is not very different from the famous Deluxe Paint 
