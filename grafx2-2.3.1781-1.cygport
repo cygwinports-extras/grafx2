@@ -3,7 +3,7 @@ HOMEPAGE="http://code.google.com/p/grafx2/"
 SRC_URI="http://grafx2.googlecode.com/files/${P}-src.tgz"
 SRC_DIR=${PN}
 
-PATCH_URI="2.2-cygwin.patch"
+PATCH_URI="2.3-cygwin.patch"
 
 MAKEOPTS+=" prefix=/usr COMSPEC= "
 
